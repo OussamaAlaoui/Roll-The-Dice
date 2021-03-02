@@ -79,6 +79,7 @@ h1 {
   position: absolute;
   width: 6rem;
   border: #12171b solid 2px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
 }
 button {
   position: absolute;

@@ -17,114 +17,66 @@ let winner = document.querySelector('.player-name');
 const whoStarts = function () {
   active = Math.floor(Math.random() * 2) + 1;
 };
+const passRoll = function () {
+  currentScore = 0;
+  current.textContent = 0;
+  player.classList.toggle('active');
+  // Give the roll to the other player
+  active = active === 1 ? 2 : 1;
+  player = document.querySelector('.player' + active);
+  player.classList.toggle('active');
+};
 
 start.addEventListener('click', function () {
   whoStarts();
   roll.classList.remove('hidden');
   hold.classList.remove('hidden');
-
-  //console.log(active);
   start.classList.add('hidden');
   player = document.querySelector('.player' + active);
   player.classList.add('active');
-  //console.log('here where the add active staty activated');
-
-  //-------------------------------------------------------------
   let currentScore = 0;
   let totalScore = 0;
   roll.addEventListener('click', function () {
-    diceImage.classList.remove('hidden');
+    // genarting a random dice roll between 1-6
     dice = Math.floor(Math.random() * 6) + 1;
-    console.log(dice);
-    // const passRole = function () {
-    //   if (active === 1) {
-    //     player.classList.remove('active');
-    //     active = 2;
-    //     player = document.querySelector('.player' + active);
-    //     player.classList.add('active');
-    //   } else {
-    //     player.classList.remove('active');
-    //     active = 1;
-    //     player = document.querySelector('.player' + active);
-    //     player.classList.add('active');
-    //   }
-    //   console.log('PassRle: -> ', active);
-    // };
-    // console.log(active);
-    // console.log(`The active player is player${active}`);
-    // console.log(player.classList);
+    //display dice image
+    diceImage.classList.remove('hidden');
     diceImage.src = `images/dice-${dice}.png`;
     total = document.querySelector('#' + totalScoreId + active);
     current = document.querySelector('#' + currentScoreId + active);
-
     currentScore += dice;
     current.textContent = currentScore;
-    //console.log('->', currentScore);
     if (dice === 1) {
-      currentScore = 0;
-      current.textContent = 0;
-
-      if (active === 1) {
-        player.classList.remove('active');
-        active = 2;
-        player = document.querySelector('.player' + active);
-        player.classList.add('active');
-      } else {
-        player.classList.remove('active');
-        active = 1;
-        player = document.querySelector('.player' + active);
-        player.classList.add('active');
-      }
+      passRoll();
     }
-    console.log('->', active);
   });
   hold.addEventListener('click', function () {
-    //console.log(player);
     totalScore = Number(total.textContent);
     totalScore += currentScore;
     total.textContent = totalScore;
-    if (total.textContent >= 20) {
+    if (total.textContent >= 10) {
       player.classList.add('winner');
       winner = document.querySelector('.player-name' + active);
       console.log(`${winnerName} IS THE WINNER 🎉`);
-
       roll.classList.add('hidden');
       hold.classList.add('hidden');
     }
-
-    if (active === 1) {
-      player.classList.remove('active');
-      active = 2;
-      player = document.querySelector('.player' + active);
-      player.classList.add('active');
-    } else if (active === 2) {
-      player.classList.remove('active');
-      active = 1;
-      player = document.querySelector('.player' + active);
-      player.classList.add('active');
-    }
-
+    passRoll();
     currentScore = 0;
     current.textContent = 0;
   });
 });
 restart.addEventListener('click', function () {
-  let totScore = document.querySelectorAll('.total-score');
+  document.querySelector('#total-score-p1').textContent = 0;
+  document.querySelector('#total-score-p2').textContent = 0;
   for (let i = 0; i < allPlayers.length; i++) {
     if (allPlayers[i].classList.contains('winner')) {
       allPlayers[i].classList.remove('winner');
-
-      totScore[i].textContent = 0;
     }
   }
   diceImage.classList.add('hidden');
   totalScore = 0;
   currentScore = 0;
-  totScore.textContent = '0';
   roll.classList.remove('hidden');
   hold.classList.remove('hidden');
 });
-
-// console.log(whoStarts());
-
-// console.log(player);
