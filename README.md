@@ -1,6 +1,6 @@
 # Roll The Dice
 
-A small game played by two players and the winner is the first player who reaches score 100.
+A small game played by two players and the winner is the first player who reaches score 100, by collecting scores from rolling the dice.
 
 ## Hoe does it work
 
